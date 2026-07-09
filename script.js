@@ -37,3 +37,21 @@ window.onload = function(){
     }
 
 }
+// Current Date & Time
+
+const today = new Date();
+
+const date = document.getElementById("date");
+const time = document.getElementById("time");
+
+if(date){
+
+    date.value = today.toISOString().split("T")[0];
+
+}
+
+if(time){
+
+    time.value = today.toTimeString().slice(0,5);
+
+}
