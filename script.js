@@ -55,3 +55,39 @@ if(time){
     time.value = today.toTimeString().slice(0,5);
 
 }
+// ===========================
+// Volume Calculation
+// ===========================
+
+const rateInput = document.getElementById("rate");
+const amountInput = document.getElementById("amount");
+const volumeInput = document.getElementById("volume");
+
+function calculateVolume(){
+
+    const rate = parseFloat(rateInput.value);
+    const amount = parseFloat(amountInput.value);
+
+    if(rate > 0 && amount > 0){
+
+        volumeInput.value = (amount / rate).toFixed(2);
+
+    }else{
+
+        volumeInput.value = "";
+
+    }
+
+}
+
+if(rateInput){
+
+    rateInput.addEventListener("input",calculateVolume);
+
+}
+
+if(amountInput){
+
+    amountInput.addEventListener("input",calculateVolume);
+
+}
