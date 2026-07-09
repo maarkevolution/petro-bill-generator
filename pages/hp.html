@@ -1,1 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>HP Petrol Pump Billing System</title>
+
+<link rel="stylesheet" href="../style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>HP Petrol Pump Billing System</h1>
+
+<p>Generate Thermal Receipt</p>
+
+<form>
+
+<label>Petrol Pump Name</label>
+<input type="text" value="Millennium Ahmedabad" readonly>
+
+<label>Bill Number</label>
+<input type="text" id="billNo" readonly>
+
+<label>Transaction ID</label>
+<input type="text" id="transactionId" readonly>
+
+<label>Date</label>
+<input type="date">
+
+<label>Time</label>
+<input type="time">
+
+<label>Fuel Type</label>
+
+<select>
+
+<option>Petrol</option>
+
+<option>Diesel</option>
+
+<option>CNG</option>
+
+</select>
+
+<label>Rate (₹)</label>
+
+<input type="number" placeholder="101.69">
+
+<label>Amount (₹)</label>
+
+<input type="number" placeholder="300">
+
+<button type="button">
+Generate Bill
+</button>
+
+</form>
+
+</div>
+
+<script src="../script.js"></script>
+
+</body>
+
+</html>
