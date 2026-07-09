@@ -85,7 +85,23 @@ if(rateInput){
     rateInput.addEventListener("input",calculateVolume);
 
 }
+function calculateVolume(){
 
+const rate=parseFloat(document.getElementById("rate").value)||0;
+
+const amount=parseFloat(document.getElementById("amount").value)||0;
+
+if(rate>0){
+
+document.getElementById("volume").value=(amount/rate).toFixed(2);
+
+}else{
+
+document.getElementById("volume").value="";
+
+}
+
+}
 if(amountInput){
 
     amountInput.addEventListener("input",calculateVolume);
