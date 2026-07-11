@@ -6,7 +6,8 @@ const companies = {
   },
   indianoil: {
     name: "Indian Oil",
-    pump: "KAMESHWAR PETROLEUM - NARANPURA",
+    pump: "KAMESHWAR PETROLEUM -
+           NARANPURA",
     logo: "logos/indianoil.png.webp"
   },
   bpcl: {
