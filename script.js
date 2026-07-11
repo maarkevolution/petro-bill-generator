@@ -55,15 +55,19 @@ function renderHome() {
   });
 }
 
-function generateBillNumber() {
+function generateBillNumber(monthName = null) {
   const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const month = months[new Date().getMonth()];
+  const month = monthName || months[new Date().getMonth()];
   const random = Math.floor(10000 + Math.random() * 90000);
   return `${month}-${random}-ORGNL`;
 }
 
 function generateTransactionID() {
-  return Math.floor(1000000000000000 + Math.random() * 9000000000000000);
+  let id = String(Math.floor(1 + Math.random() * 9));
+  for (let i = 0; i < 15; i++) {
+    id += Math.floor(Math.random() * 10);
+  }
+  return id;
 }
 
 function pad(num) {
@@ -86,9 +90,22 @@ function formatDate(value) {
   return `${parts[2]}/${parts[1]}/${parts[0]}`;
 }
 
-function openBill(companyKey) {
-  currentCompany = companyKey;
+function formatRs(value) {
+  const number = parseFloat(value) || 0;
+  if (number === 0) return "RS.00.00";
+  return `RS.${number.toFixed(2)}`;
+}
+
+function openBill(companyKey, updateUrl = true) {
   const company = companies[companyKey];
+  if (!company) return;
+
+  currentCompany = companyKey;
+  localStorage.setItem("selectedCompany", companyKey);
+
+  if (updateUrl) {
+    history.replaceState(null, "", `${window.location.pathname}?brand=${companyKey}`);
+  }
 
   document.getElementById("home").classList.add("hidden");
   document.getElementById("billing").classList.remove("hidden");
@@ -96,6 +113,7 @@ function openBill(companyKey) {
   document.getElementById("companyTitle").innerText = `${company.name} Bill Generator`;
   document.getElementById("pumpName").value = company.pump;
   document.getElementById("receiptLogo").src = company.logo;
+  document.getElementById("receiptLogo").alt = `${company.name} logo`;
 
   document.getElementById("billNo").value = generateBillNumber();
   document.getElementById("transactionId").value = generateTransactionID();
@@ -105,6 +123,9 @@ function openBill(companyKey) {
 }
 
 function goHome() {
+  localStorage.removeItem("selectedCompany");
+  history.replaceState(null, "", window.location.pathname);
+
   document.getElementById("billing").classList.add("hidden");
   document.getElementById("home").classList.remove("hidden");
 }
@@ -140,9 +161,9 @@ Fuel    : ${fuel}
 
 Density : ${densities[fuel].toFixed(1)} Kg/m3
 
-Preset  : RS.${preset.toFixed(2)}
-Rate    : RS.${rate.toFixed(2)}
-Sale    : RS.${sale.toFixed(2)}
+Preset  : ${formatRs(preset)}
+Rate    : ${formatRs(rate)}
+Sale    : ${formatRs(sale)}
 
 Volume  : ${volume.toFixed(2)} ${fuel === "CNG" ? "Kg" : "L"}`;
 }
@@ -193,11 +214,22 @@ setInterval(() => {
   }
 }, 1000);
 
+document.querySelectorAll("input, select").forEach(field => {
+  field.addEventListener("input", updateBill);
+  field.addEventListener("change", updateBill);
+});
+
 renderHome();
 
 const params = new URLSearchParams(window.location.search);
-const brand = params.get("brand");
+const brandFromUrl = params.get("brand");
+const savedBrand = localStorage.getItem("selectedCompany");
 
-if (brand && companies[brand]) {
-  openBill(brand);
+if (brandFromUrl && companies[brandFromUrl]) {
+  openBill(brandFromUrl, false);
+} else if (savedBrand && companies[savedBrand]) {
+  openBill(savedBrand, true);
+} else {
+  document.getElementById("billing").classList.add("hidden");
+  document.getElementById("home").classList.remove("hidden");
 }
