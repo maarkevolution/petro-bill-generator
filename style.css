@@ -1,320 +1,225 @@
-/* ===========================
-   PETRO BILL GENERATOR
-   Professional UI
-=========================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
-    background:#eef3f8;
-    color:#222;
+body {
+  background: #eef3f8;
+  color: #222;
 }
 
-/* Header */
-
-header{
-    background:#0057b8;
-    color:#fff;
-    text-align:center;
-    padding:20px;
-    font-size:30px;
-    font-weight:bold;
-    box-shadow:0 3px 10px rgba(0,0,0,.2);
+.hidden {
+  display: none;
 }
 
-/* Main Container */
-
-.container{
-    width:95%;
-    max-width:1400px;
-    margin:30px auto;
+.home {
+  width: 95%;
+  max-width: 1200px;
+  margin: 40px auto;
+  text-align: center;
 }
 
-/* Home Page */
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:25px;
+.home h1 {
+  color: #0057b8;
+  font-size: 48px;
+  margin-bottom: 10px;
 }
 
-.grid a{
-    text-decoration:none;
+.home p {
+  font-size: 20px;
+  margin-bottom: 30px;
 }
 
-.grid button{
-
-    width:100%;
-    height:180px;
-
-    border:none;
-
-    border-radius:18px;
-
-    background:white;
-
-    font-size:22px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    box-shadow:0 8px 20px rgba(0,0,0,.15);
-
-    transition:.3s;
-
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
 }
 
-.grid button:hover{
-
-    background:#0057b8;
-
-    color:white;
-
-    transform:translateY(-8px);
-
+.grid button {
+  height: 180px;
+  border: none;
+  border-radius: 12px;
+  background: white;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,.15);
 }
 
-/* Billing Layout */
-
-.billing{
-
-    display:grid;
-
-    grid-template-columns:1fr 380px;
-
-    gap:30px;
-
-    margin-top:25px;
-
+.grid button:hover {
+  background: #0057b8;
+  color: white;
 }
 
-@media(max-width:1000px){
-
-.billing{
-
-grid-template-columns:1fr;
-
+.billing {
+  width: 95%;
+  max-width: 1300px;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 30px;
 }
 
+.form-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.12);
 }
 
-/* Left Card */
-
-.card{
-
-    background:white;
-
-    padding:25px;
-
-    border-radius:15px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.12);
-
+.form-card h2 {
+  color: #0057b8;
+  margin: 15px 0;
 }
 
-.card h2{
-
-    margin-bottom:20px;
-
-    color:#0057b8;
-
-}
-
-/* Form */
-
-form{
-
-display:flex;
-
-flex-direction:column;
-
-}
-
-label{
-
-margin-top:15px;
-
-margin-bottom:6px;
-
-font-weight:bold;
-
+label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 input,
-select{
-
-padding:12px;
-
-border:1px solid #ccc;
-
-border-radius:8px;
-
-font-size:16px;
-
-outline:none;
-
+select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
 }
 
-input:focus,
-select:focus{
-
-border-color:#0057b8;
-
+.btn,
+.back {
+  width: 100%;
+  margin-top: 18px;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #0057b8;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-/* Buttons */
-
-.btn{
-
-margin-top:25px;
-
-padding:14px;
-
-background:#0057b8;
-
-color:white;
-
-font-size:18px;
-
-font-weight:bold;
-
-border:none;
-
-border-radius:8px;
-
-cursor:pointer;
-
-transition:.3s;
-
+.back {
+  width: auto;
+  padding: 10px 18px;
 }
 
-.btn:hover{
-
-background:#003d82;
-
+.print {
+  background: #28a745;
 }
 
-/* Receipt */
-
-.receipt{
-
-background:white;
-
-padding:20px;
-
-border-radius:12px;
-
-box-shadow:0 5px 15px rgba(0,0,0,.12);
-
-font-family:"Courier New", monospace;
-
+.pdf {
+  background: #222;
 }
 
-.receipt h3{
-
-text-align:center;
-
-margin-bottom:10px;
-
+.receipt-wrap {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.12);
 }
 
-.receipt hr{
-
-margin:10px 0;
-
+.receipt {
+  width: 57mm;
+  height: 132mm;
+  margin: auto;
+  padding: 11px 9px 0;
+  background: white;
+  color: #111;
+  overflow: hidden;
+  font-family: "Courier New", Courier, monospace;
+  border: 1px solid #ddd;
 }
 
-.receipt p{
-
-font-size:15px;
-
-margin:5px 0;
-
-display:flex;
-
-justify-content:space-between;
-
+.receipt h3 {
+  margin-top: 20px;
+  margin-bottom: 25px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: normal;
+  font-family: "Courier New", Courier, monospace;
+  white-space: nowrap;
 }
 
-/* Print Button */
-
-.print{
-
-margin-top:20px;
-
-background:#28a745;
-
+.receipt pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 18px;
+  line-height: 1.39;
+  white-space: pre;
 }
 
-.print:hover{
-
-background:#1d7d33;
-
+.hp-logo {
+  width: 57px;
+  height: 70px;
+  margin: 0 auto;
+  border: 2px solid #142a84;
+  background: white;
 }
 
-/* Footer */
-
-footer{
-
-margin-top:40px;
-
-text-align:center;
-
-padding:15px;
-
-color:#777;
-
-font-size:14px;
-
-}
-@media print{
-
-body{
-
-background:white;
-
+.hp-top {
+  height: 16px;
+  background: #dc1f26;
+  color: white;
+  font-size: 5px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 16px;
 }
 
-header,
-.card,
-.btn{
-
-display:none;
-
+.hp-circle {
+  width: 43px;
+  height: 43px;
+  border: 2px solid #142a84;
+  border-radius: 50%;
+  margin: 5px auto 0;
+  text-align: center;
+  color: #dc1f26;
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 30px;
 }
 
-.billing{
-
-display:block;
-
+@page {
+  size: 57mm 132mm;
+  margin: 0;
 }
 
-.receipt{
+@media print {
+  body {
+    background: white;
+  }
 
-width:57mm;
+  .form-card,
+  .home {
+    display: none !important;
+  }
 
-box-shadow:none;
+  .billing,
+  .receipt-wrap {
+    display: block;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    background: white;
+  }
 
-border:none;
-
-margin:auto;
-
-padding:0;
-
+  .receipt {
+    width: 57mm;
+    height: 132mm;
+    margin: 0;
+    border: none;
+  }
 }
 
-@page{
-
-size:57mm auto;
-
-margin:0;
-
-}
-
+@media(max-width: 900px) {
+  .billing {
+    grid-template-columns: 1fr;
+  }
 }
