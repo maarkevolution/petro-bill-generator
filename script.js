@@ -82,6 +82,15 @@ function generateRandomTime() {
   return `${pad(hour)}:${pad(minute)}:${pad(second)}`;
 }
 
+function setDateAndRandomTime() {
+  const now = new Date();
+
+  document.getElementById("date").value =
+    `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+
+  document.getElementById("time").value = generateRandomTime();
+}
+
 function formatDate(value) {
   if (!value) return "";
   const parts = value.split("-");
@@ -116,7 +125,7 @@ function openBill(companyKey, updateUrl = true) {
   document.getElementById("billNo").value = generateBillNumber();
   document.getElementById("transactionId").value = generateTransactionID();
 
-  setDateTime();
+  setDateAndRandomTime();
   updateBill();
 }
 
@@ -193,7 +202,7 @@ async function downloadPDF() {
   const canvas = await makeCanvas();
   const imgData = canvas.toDataURL("image/png");
 
-  const pdf = new jspdf.jsPDF({
+  const pdf = new window.jspdf.jsPDF({
     orientation: "portrait",
     unit: "mm",
     format: [57, 132]
@@ -202,8 +211,6 @@ async function downloadPDF() {
   pdf.addImage(imgData, "PNG", 0, 0, 57, 132);
   pdf.save(`${currentCompany}-petro-bill.pdf`);
 }
-
-
 
 document.querySelectorAll("input, select").forEach(field => {
   field.addEventListener("input", updateBill);
