@@ -203,14 +203,7 @@ async function downloadPDF() {
   pdf.save(`${currentCompany}-petro-bill.pdf`);
 }
 
-setInterval(() => {
-  if (!document.getElementById("billing").classList.contains("hidden")) {
-    const now = new Date();
-    document.getElementById("time").value =
-      `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-    updateBill();
-  }
-}, 1000);
+
 
 document.querySelectorAll("input, select").forEach(field => {
   field.addEventListener("input", updateBill);
