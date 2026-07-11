@@ -74,14 +74,12 @@ function pad(num) {
   return String(num).padStart(2, "0");
 }
 
-function setDateTime() {
-  const now = new Date();
+function generateRandomTime() {
+  const hour = Math.floor(Math.random() * 24);
+  const minute = Math.floor(Math.random() * 60);
+  const second = Math.floor(Math.random() * 60);
 
-  document.getElementById("date").value =
-    `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
-
-  document.getElementById("time").value =
-    `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+  return `${pad(hour)}:${pad(minute)}:${pad(second)}`;
 }
 
 function formatDate(value) {
