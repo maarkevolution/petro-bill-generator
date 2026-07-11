@@ -27,7 +27,7 @@ const companies = {
   reliance: {
     name: "Reliance",
     pump: "RELIANCE FUEL PLAZA",
-    logo: "logos/jio.svg"
+    logo: "logos/jio.png"
   }
 };
 
