@@ -71,7 +71,7 @@ body {
   max-width: 1300px;
   margin: 25px auto;
   display: grid;
-  grid-template-columns: 1fr 360px;
+  grid-template-columns: 1fr 380px;
   gap: 30px;
 }
 
@@ -135,10 +135,9 @@ select {
   background: #222;
 }
 
-/* Exact receipt area */
 .receipt {
-  width: 57mm;
-  height: 132mm;
+  width: 308px;
+  height: 712px;
   margin: auto;
   padding: 10px 9px 0;
   background: white;
@@ -150,8 +149,8 @@ select {
 
 .receipt-logo {
   display: block;
-  width: 56px;
-  height: 70px;
+  width: 58px;
+  height: 72px;
   object-fit: contain;
   margin: 0 auto;
 }
