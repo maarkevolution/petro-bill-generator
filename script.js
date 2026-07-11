@@ -16,7 +16,7 @@ const companies = {
   },
   shell: {
     name: "Shell",
-    pump: "SHELL - GOTA",
+    pump: "SHELL - JAGATPUR RD",
     logo: "logos/Shell.png.png"
   },
   nayara: {
