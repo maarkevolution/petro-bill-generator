@@ -1,53 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Petro Bill Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petro Bill Generator</title>
+  <link rel="stylesheet" href="style.css" />
 
-<link rel="stylesheet" href="style.css">
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
-
 <body>
 
-<div class="container">
+<section id="home" class="home">
+  <h1>Petro Bill Generator</h1>
+  <p>Multi Petrol Pump Billing System</p>
 
-<h1>⛽ Petro Bill Generator</h1>
+  <div class="grid">
+    <button onclick="openBill('HP')">HP</button>
+    <button onclick="openBill('Indian Oil')">Indian Oil</button>
+    <button onclick="openBill('Bharat Petroleum')">Bharat Petroleum</button>
+    <button onclick="openBill('Shell')">Shell</button>
+    <button onclick="openBill('Nayara')">Nayara</button>
+    <button onclick="openBill('Reliance')">Reliance</button>
+  </div>
+</section>
 
-<p>Multi Petrol Pump Billing System</p>
+<section id="billing" class="billing hidden">
+  <div class="form-card">
+    <button class="back" onclick="goHome()">Back</button>
+    <h2 id="companyTitle">HP Bill Generator</h2>
 
-<div class="grid">
+    <label>Pump Name</label>
+    <input id="pumpName" value="MILLENIUM AHMEDABAD GOTA" />
 
-<a href="pages/hp.html">
-    <button>HP</button>
-</a>
+    <label>Bill No</label>
+    <input id="billNo" readonly />
 
-<a href="pages/indianoil.html">
-    <button>Indian Oil</button>
-</a>
+    <label>Transaction ID</label>
+    <input id="transactionId" readonly />
 
-<a href="pages/bpcl.html">
-    <button>Bharat Petroleum</button>
-</a>
+    <label>Attendant ID</label>
+    <input id="attendantId" value="NotEntered" />
 
-<a href="pages/shell.html">
-    <button>Shell</button>
-</a>
+    <label>Receipt Type</label>
+    <input id="receiptType" value="Physical Receipt" />
 
-<a href="pages/nayara.html">
-    <button>Nayara</button>
-</a>
+    <label>Vehicle No</label>
+    <input id="vehicleNo" value="NotEntered" />
 
-<a href="pages/reliance.html">
-    <button>Reliance</button>
-</a>
+    <label>Mobile No</label>
+    <input id="mobileNo" value="NotEntered" />
 
-</div>
+    <label>Date</label>
+    <input id="date" type="date" />
 
-</div>
+    <label>Time</label>
+    <input id="time" readonly />
+
+    <label>FP. ID</label>
+    <input id="fpId" value="1" />
+
+    <label>Nozzle No</label>
+    <input id="nozzleNo" value="1" />
+
+    <label>Fuel Type</label>
+    <select id="fuelType" onchange="updateBill()">
+      <option value="PETROL">PETROL</option>
+      <option value="DIESEL">DIESEL</option>
+      <option value="CNG">CNG</option>
+    </select>
+
+    <label>Density</label>
+    <input id="density" readonly />
+
+    <label>Preset</label>
+    <input id="preset" type="number" value="0" oninput="updateBill()" />
+
+    <label>Rate</label>
+    <input id="rate" type="number" value="116.65" oninput="updateBill()" />
+
+    <label>Sale Amount</label>
+    <input id="sale" type="number" value="1215.47" oninput="updateBill()" />
+
+    <label>Volume</label>
+    <input id="volume" readonly />
+
+    <button class="btn" onclick="updateBill()">Generate Bill</button>
+    <button class="btn print" onclick="window.print()">Print Bill</button>
+    <button class="btn pdf" onclick="downloadPDF()">Generate PDF</button>
+  </div>
+
+  <div class="receipt-wrap">
+    <div id="receipt" class="receipt">
+      <div class="hp-logo">
+        <div class="hp-top">Hindustan Petroleum</div>
+        <div class="hp-circle">
+          <span>HP</span>
+        </div>
+      </div>
+
+      <h3 id="receiptPump">MILLENIUM AHMEDABAD GOTA</h3>
+
+      <pre id="receiptText"></pre>
+    </div>
+  </div>
+</section>
 
 <script src="script.js"></script>
-
 </body>
 </html>
