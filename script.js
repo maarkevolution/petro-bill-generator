@@ -93,7 +93,7 @@ function openBill(companyKey) {
   document.getElementById("home").classList.add("hidden");
   document.getElementById("billing").classList.remove("hidden");
 
-  document.getElementById("companyTitle").innerText = company.name + " Bill Generator";
+  document.getElementById("companyTitle").innerText = `${company.name} Bill Generator`;
   document.getElementById("pumpName").value = company.pump;
   document.getElementById("receiptLogo").src = company.logo;
 
@@ -119,8 +119,8 @@ function updateBill() {
   document.getElementById("density").value = densities[fuel].toFixed(1);
   document.getElementById("volume").value = volume.toFixed(2);
 
-  const pumpName = document.getElementById("pumpName").value.toUpperCase();
-  document.getElementById("receiptPump").innerText = pumpName;
+  document.getElementById("receiptPump").innerText =
+    document.getElementById("pumpName").value.toUpperCase();
 
   document.getElementById("receiptText").innerText =
 `Bill No : ${document.getElementById("billNo").value}
@@ -147,13 +147,22 @@ Sale    : RS.${sale.toFixed(2)}
 Volume  : ${volume.toFixed(2)} ${fuel === "CNG" ? "Kg" : "L"}`;
 }
 
-async function downloadImage() {
+async function makeCanvas() {
   const receipt = document.getElementById("receipt");
 
-  const canvas = await html2canvas(receipt, {
-    scale: 4,
-    backgroundColor: "#ffffff"
+  return await html2canvas(receipt, {
+    scale: 3,
+    backgroundColor: "#ffffff",
+    useCORS: true,
+    scrollX: 0,
+    scrollY: 0,
+    windowWidth: document.documentElement.scrollWidth,
+    windowHeight: document.documentElement.scrollHeight
   });
+}
+
+async function downloadImage() {
+  const canvas = await makeCanvas();
 
   const link = document.createElement("a");
   link.download = `${currentCompany}-petro-bill.png`;
@@ -162,13 +171,7 @@ async function downloadImage() {
 }
 
 async function downloadPDF() {
-  const receipt = document.getElementById("receipt");
-
-  const canvas = await html2canvas(receipt, {
-    scale: 4,
-    backgroundColor: "#ffffff"
-  });
-
+  const canvas = await makeCanvas();
   const imgData = canvas.toDataURL("image/png");
 
   const pdf = new jspdf.jsPDF({
@@ -194,6 +197,7 @@ renderHome();
 
 const params = new URLSearchParams(window.location.search);
 const brand = params.get("brand");
+
 if (brand && companies[brand]) {
   openBill(brand);
 }
