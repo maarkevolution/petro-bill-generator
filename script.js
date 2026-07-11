@@ -6,27 +6,27 @@ const companies = {
   },
   indianoil: {
     name: "Indian Oil",
-    pump: "INDIAN OIL FUEL STATION",
+    pump: "KAMESHWAR PETROLEUM - NARANPURA",
     logo: "logos/indianoil.png.webp"
   },
   bpcl: {
     name: "Bharat Petroleum",
-    pump: "BHARAT PETROLEUM DEALER",
+    pump: "B P SHASTRINAGAR",
     logo: "logos/Bharat_Petroleum_logo.svg.webp"
   },
   shell: {
     name: "Shell",
-    pump: "SHELL FUEL STATION",
+    pump: "SHELL - GOTA",
     logo: "logos/Shell.png.png"
   },
   nayara: {
     name: "Nayara",
-    pump: "NAYARA PETROLEUM OUTLET",
+    pump: "VINAYAK PETROLEUM ",
     logo: "logos/Nayara.png.jpg"
   },
   reliance: {
     name: "Reliance",
-    pump: "RELIANCE FUEL PLAZA",
+    pump: "JIO BP- AMBAWADI ",
     logo: "logos/jio.png"
   }
 };
