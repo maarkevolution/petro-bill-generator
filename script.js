@@ -1,10 +1,59 @@
-let currentCompany = "HP";
+const companies = {
+  hp: {
+    name: "HP Petrol Pump",
+    pump: "MILLENIUM AHMEDABAD GOTA",
+    logo: "logos/hp.png.webp"
+  },
+  indianoil: {
+    name: "Indian Oil",
+    pump: "INDIAN OIL FUEL STATION",
+    logo: "logos/indianoil.png.webp"
+  },
+  bpcl: {
+    name: "Bharat Petroleum",
+    pump: "BHARAT PETROLEUM DEALER",
+    logo: "logos/Bharat_Petroleum_logo.svg.webp"
+  },
+  shell: {
+    name: "Shell",
+    pump: "SHELL FUEL STATION",
+    logo: "logos/Shell.png.png"
+  },
+  nayara: {
+    name: "Nayara",
+    pump: "NAYARA PETROLEUM OUTLET",
+    logo: "logos/Nayara.png.jpg"
+  },
+  reliance: {
+    name: "Reliance",
+    pump: "RELIANCE FUEL PLAZA",
+    logo: "logos/jio.svg"
+  }
+};
 
 const densities = {
   PETROL: 752.6,
   DIESEL: 835.0,
   CNG: 620.0
 };
+
+let currentCompany = "hp";
+
+function renderHome() {
+  const grid = document.getElementById("companyGrid");
+  grid.innerHTML = "";
+
+  Object.keys(companies).forEach(key => {
+    const company = companies[key];
+
+    grid.innerHTML += `
+      <button class="company-card" onclick="openBill('${key}')">
+        <img src="${company.logo}" alt="${company.name}">
+        <strong>${company.name}</strong>
+      </button>
+    `;
+  });
+}
 
 function generateBillNumber() {
   const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -32,22 +81,21 @@ function setDateTime() {
 }
 
 function formatDate(value) {
+  if (!value) return "";
   const parts = value.split("-");
   return `${parts[2]}/${parts[1]}/${parts[0]}`;
 }
 
-function openBill(company) {
-  currentCompany = company;
+function openBill(companyKey) {
+  currentCompany = companyKey;
+  const company = companies[companyKey];
 
   document.getElementById("home").classList.add("hidden");
   document.getElementById("billing").classList.remove("hidden");
-  document.getElementById("companyTitle").innerText = `${company} Bill Generator`;
 
-  if (company === "HP") {
-    document.getElementById("pumpName").value = "MILLENIUM AHMEDABAD GOTA";
-  } else {
-    document.getElementById("pumpName").value = company.toUpperCase() + " FUEL STATION";
-  }
+  document.getElementById("companyTitle").innerText = company.name + " Bill Generator";
+  document.getElementById("pumpName").value = company.pump;
+  document.getElementById("receiptLogo").src = company.logo;
 
   document.getElementById("billNo").value = generateBillNumber();
   document.getElementById("transactionId").value = generateTransactionID();
@@ -65,6 +113,7 @@ function updateBill() {
   const fuel = document.getElementById("fuelType").value;
   const rate = parseFloat(document.getElementById("rate").value) || 0;
   const sale = parseFloat(document.getElementById("sale").value) || 0;
+  const preset = parseFloat(document.getElementById("preset").value) || 0;
   const volume = rate > 0 ? sale / rate : 0;
 
   document.getElementById("density").value = densities[fuel].toFixed(1);
@@ -73,7 +122,7 @@ function updateBill() {
   const pumpName = document.getElementById("pumpName").value.toUpperCase();
   document.getElementById("receiptPump").innerText = pumpName;
 
-  const text =
+  document.getElementById("receiptText").innerText =
 `Bill No : ${document.getElementById("billNo").value}
 Trns.ID : ${document.getElementById("transactionId").value}
 Atnd.ID : ${document.getElementById("attendantId").value}
@@ -91,13 +140,25 @@ Fuel    : ${fuel}
 
 Density : ${densities[fuel].toFixed(1)} Kg/m3
 
-Preset  : RS.${parseFloat(document.getElementById("preset").value || 0).toFixed(2)}
+Preset  : RS.${preset.toFixed(2)}
 Rate    : RS.${rate.toFixed(2)}
 Sale    : RS.${sale.toFixed(2)}
 
 Volume  : ${volume.toFixed(2)} ${fuel === "CNG" ? "Kg" : "L"}`;
+}
 
-  document.getElementById("receiptText").innerText = text;
+async function downloadImage() {
+  const receipt = document.getElementById("receipt");
+
+  const canvas = await html2canvas(receipt, {
+    scale: 4,
+    backgroundColor: "#ffffff"
+  });
+
+  const link = document.createElement("a");
+  link.download = `${currentCompany}-petro-bill.png`;
+  link.href = canvas.toDataURL("image/png");
+  link.click();
 }
 
 async function downloadPDF() {
@@ -117,7 +178,7 @@ async function downloadPDF() {
   });
 
   pdf.addImage(imgData, "PNG", 0, 0, 57, 132);
-  pdf.save("petro-bill.pdf");
+  pdf.save(`${currentCompany}-petro-bill.pdf`);
 }
 
 setInterval(() => {
@@ -128,3 +189,11 @@ setInterval(() => {
     updateBill();
   }
 }, 1000);
+
+renderHome();
+
+const params = new URLSearchParams(window.location.search);
+const brand = params.get("brand");
+if (brand && companies[brand]) {
+  openBill(brand);
+}
